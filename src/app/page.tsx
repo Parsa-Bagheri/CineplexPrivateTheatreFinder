@@ -2,7 +2,6 @@
 
 import {
   CalendarDays,
-  Clapperboard,
   Clock,
   ExternalLink,
   Filter,
@@ -10,7 +9,6 @@ import {
   MapPin,
   Search,
   SlidersHorizontal,
-  Ticket,
   Zap
 } from "lucide-react";
 import { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -133,15 +131,11 @@ export default function HomePage() {
         <header className={`border-4 border-black bg-white ${panelShadow}`}>
           <div className="grid gap-0 lg:grid-cols-[1fr_auto]">
             <div className="border-b-4 border-black bg-[#ff4fa3] p-4 sm:p-6 lg:border-b-0 lg:border-r-4">
-              <p className="inline-flex border-4 border-black bg-white px-3 py-1 text-xs font-black uppercase tracking-[0.16em] shadow-[4px_4px_0_#111111]">
-                Cineplex preview data
-              </p>
-              <h1 className="mt-4 max-w-4xl text-4xl font-black uppercase leading-none text-black sm:text-6xl lg:text-7xl">
-                Likely Empty Showings
+              <h1 className="max-w-4xl text-4xl font-black leading-none text-black sm:text-6xl lg:text-7xl">
+                (Probably) Empty Theatres
               </h1>
             </div>
-            <div className="grid min-w-64 bg-black text-white sm:grid-cols-3 lg:grid-cols-1">
-              <HeaderStat icon={<Ticket className="h-5 w-5" aria-hidden="true" />} label="Mode" value="Seat Radar" />
+            <div className="grid min-w-64 bg-black text-white sm:grid-cols-2 lg:grid-cols-1">
               <HeaderStat
                 icon={<SlidersHorizontal className="h-5 w-5" aria-hidden="true" />}
                 label="Filters"
@@ -157,9 +151,9 @@ export default function HomePage() {
             <div className="mb-4 flex items-start justify-between gap-4 border-b-4 border-black bg-[#f7e900] p-3">
               <div>
                 <p className="text-xs font-black uppercase tracking-[0.16em]">Search console</p>
-                <h2 className="mt-1 text-3xl font-black uppercase leading-none">Find a quiet room</h2>
+                <h2 className="mt-1 text-3xl font-black leading-none">Find a quiet spot</h2>
               </div>
-              <Clapperboard className="h-9 w-9 shrink-0" aria-hidden="true" />
+              <MapPin className="h-9 w-9 shrink-0" aria-hidden="true" />
             </div>
 
             <form className="grid gap-4" onSubmit={onSubmit}>
