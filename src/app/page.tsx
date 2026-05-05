@@ -97,12 +97,10 @@ export default function HomePage() {
     setRadiusKm(state.radiusKm);
     setMovieTitle(state.movieTitle);
     setFilters(state.filters);
-    setHasSearched(Boolean(saved.hasSearched));
-
-    if (saved.hasSearched) {
-      void executeSearch(state, { replaceUrl: false, remember: true });
-    }
-  }, [executeSearch]);
+    setHasSearched(false);
+    setResults([]);
+    setError(undefined);
+  }, []);
 
   useEffect(() => {
     if (!loadedSavedState.current) {
@@ -148,12 +146,11 @@ export default function HomePage() {
 
         <div className="grid gap-5 xl:grid-cols-[430px_minmax(0,1fr)]">
           <section className={`border-4 border-black bg-[#00d5ff] p-4 ${panelShadow} xl:sticky xl:top-5 xl:self-start`}>
-            <div className="mb-4 flex items-start justify-between gap-4 border-b-4 border-black bg-[#f7e900] p-3">
+            <div className="mb-4 border-b-4 border-black bg-[#f7e900] p-3">
               <div>
                 <p className="text-xs font-black uppercase tracking-[0.16em]">Search console</p>
-                <h2 className="mt-1 text-3xl font-black leading-none">Find a quiet spot</h2>
+                <h2 className="mt-1 text-3xl font-black leading-none">FIND A QUIET SPOT</h2>
               </div>
-              <MapPin className="h-9 w-9 shrink-0" aria-hidden="true" />
             </div>
 
             <form className="grid gap-4" onSubmit={onSubmit}>
