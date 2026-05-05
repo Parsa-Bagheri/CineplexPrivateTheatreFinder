@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Likely Empty Cineplex",
+  title: "Empty (Cineplex) Theatre Finder",
   description: "Find Cineplex showtimes that appear to have very low occupancy."
 };
 

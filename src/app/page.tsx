@@ -116,8 +116,7 @@ export default function HomePage() {
         <section className="rounded-lg border border-neutral-800 bg-[#111111] p-4 shadow-[0_18px_70px_rgba(0,0,0,0.45)]">
           <div className="mb-5 flex items-start justify-between gap-4 border-b border-neutral-800 pb-4">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-amber-300">Cineplex preview data</p>
-              <h1 className="mt-2 text-2xl font-semibold leading-tight text-white">Find likely empty showings</h1>
+              <h1 className="text-2xl font-semibold leading-tight text-white">Empty (Cineplex) Theatre Finder</h1>
             </div>
             <Ticket className="mt-1 h-5 w-5 text-amber-300" aria-hidden="true" />
           </div>
