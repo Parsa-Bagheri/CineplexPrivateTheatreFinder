@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
-  background: #050505;
-  color: #f5f5f5;
+  color-scheme: light;
+  background: #f7e900;
+  color: #111111;
 }
 
 * {
@@ -19,8 +19,12 @@ body {
 
 body {
   margin: 0;
-  background: #050505;
-  color: #f5f5f5;
+  background:
+    linear-gradient(#111111 2px, transparent 2px),
+    linear-gradient(90deg, #111111 2px, transparent 2px),
+    #f7e900;
+  background-size: 34px 34px;
+  color: #111111;
   font-family:
     Arial,
     Helvetica,
@@ -34,15 +38,26 @@ select {
   font: inherit;
 }
 
+input,
+select,
+button {
+  border-radius: 0;
+}
+
 a {
   color: inherit;
 }
 
 .focus-ring {
   outline: 2px solid transparent;
-  outline-offset: 2px;
+  outline-offset: 4px;
 }
 
 .focus-ring:focus-visible {
-  outline-color: #fcd34d;
+  outline-color: #ff4fa3;
+}
+
+::selection {
+  background: #ff4fa3;
+  color: #111111;
 }
