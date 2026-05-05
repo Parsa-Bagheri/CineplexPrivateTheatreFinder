@@ -111,12 +111,13 @@ export default function HomePage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#050505] px-4 py-5 text-neutral-100 sm:px-6 lg:px-8">
-      <div className="mx-auto grid w-full max-w-7xl gap-5 lg:grid-cols-[380px_1fr]">
+    <main className="flex min-h-screen flex-col bg-[#050505] px-4 py-5 text-neutral-100 sm:px-6 lg:px-8">
+      <div className="mx-auto grid w-full max-w-7xl flex-1 gap-5 lg:grid-cols-[380px_1fr]">
         <section className="rounded-lg border border-neutral-800 bg-[#111111] p-4 shadow-[0_18px_70px_rgba(0,0,0,0.45)]">
           <div className="mb-5 flex items-start justify-between gap-4 border-b border-neutral-800 pb-4">
             <div>
-              <h1 className="text-2xl font-semibold leading-tight text-white">Empty (Cineplex) Theatre Finder</h1>
+              <h1 className="text-2xl font-semibold leading-tight text-white">(Probably) Empty Theatres</h1>
+              <p className="mt-2 text-xs leading-5 text-neutral-400">Idea borrowed from Riley Walz.</p>
             </div>
             <Ticket className="mt-1 h-5 w-5 text-amber-300" aria-hidden="true" />
           </div>
@@ -247,6 +248,9 @@ export default function HomePage() {
           </div>
         </section>
       </div>
+      <footer className="mx-auto mt-5 w-full max-w-7xl border-t border-neutral-900 pt-4 text-center text-xs text-neutral-500">
+        Made with love in Waterloo
+      </footer>
     </main>
   );
 }
