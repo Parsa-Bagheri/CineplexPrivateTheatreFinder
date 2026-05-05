@@ -39,9 +39,11 @@ export async function GET(request: Request) {
 
     return NextResponse.json({ results: results.map(toUiResult) });
   } catch (error) {
+    console.error("Live Cineplex search failed", error);
+
     return NextResponse.json(
       {
-        error: error instanceof Error ? error.message : "Live Cineplex search failed"
+        error: "Live Cineplex search failed"
       },
       { status: 502 }
     );

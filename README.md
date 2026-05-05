@@ -50,7 +50,7 @@ Example output:
     "accessibility_count": 4,
     "unknown_count": 0,
     "confidence": "high",
-    "ticket_url": "https://apis.cineplex.com/prod/ticketing/api/v1/routing/redirect-to-ticketing?..."
+    "ticket_url": "https://www.cineplex.com/en-Mobile/ticketing/preview?theatreId=7311&showtimeId=125435&dbox=False"
   }
 ]
 ```

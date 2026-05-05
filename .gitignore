@@ -15,3 +15,5 @@ docs/screenshots/*.png
 docs/screenshots/*.jpg
 docs/screenshots/*.webp
 !.gitkeep
+
+.vercel

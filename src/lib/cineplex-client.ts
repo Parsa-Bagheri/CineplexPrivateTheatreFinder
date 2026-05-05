@@ -55,6 +55,7 @@ type CineplexSession = {
   isInThePast?: boolean;
   isReservedSeating?: boolean;
   areaCode?: string;
+  auditorium?: string;
 };
 
 type SeatLayoutArea = {
@@ -211,10 +212,8 @@ export class CineplexClient {
                 movieTitle: movie.name,
                 startsAt: session.showStartDateTime,
                 format,
-                ticketUrl:
-                  session.ticketingUrl ??
-                  session.seatMapUrl ??
-                  `https://www.cineplex.com/en-Mobile/ticketing/preview?theatreId=${theatre.cineplexId}&showtimeId=${session.vistaSessionId}&dbox=${String(dbox)}`,
+                auditorium: session.auditorium,
+                ticketUrl: buildPublicSeatMapUrl(theatre.cineplexId, session, dbox),
                 accessibleServices: [
                   ...(experience.isCcEnabled ? ["Closed captioning"] : []),
                   ...(experience.isDsEnabled ? ["Described services"] : []),
@@ -312,6 +311,40 @@ function toTheatre(theatre: CineplexTheatre): Theatre {
     amenities: [...(theatre.amenities ?? []), ...(theatre.accessibilities ?? [])],
     isVip: theatre.isVIP ?? /vip/i.test(theatre.theatreName)
   };
+}
+
+function buildPublicSeatMapUrl(theatreId: string, session: CineplexSession, dbox: boolean): string {
+  const publicSeatMapUrl = normalizePublicSeatMapUrl(session.seatMapUrl);
+
+  if (publicSeatMapUrl) {
+    return publicSeatMapUrl;
+  }
+
+  const url = new URL("https://www.cineplex.com/en-Mobile/ticketing/preview");
+  url.searchParams.set("theatreId", theatreId);
+  url.searchParams.set("showtimeId", String(session.vistaSessionId));
+  url.searchParams.set("dbox", dbox ? "True" : "False");
+  return url.toString();
+}
+
+function normalizePublicSeatMapUrl(rawUrl?: string): string | undefined {
+  if (!rawUrl) {
+    return undefined;
+  }
+
+  try {
+    const url = new URL(rawUrl);
+    const hostname = url.hostname.toLowerCase();
+    const isCineplexPreview =
+      (hostname === "www.cineplex.com" || hostname === "cineplex.com") &&
+      url.pathname.toLowerCase().endsWith("/ticketing/preview") &&
+      Boolean(url.searchParams.get("theatreId")) &&
+      Boolean(url.searchParams.get("showtimeId"));
+
+    return isCineplexPreview ? url.toString() : undefined;
+  } catch {
+    return undefined;
+  }
 }
 
 function matchesTheatreText(theatre: Theatre, text: string): boolean {

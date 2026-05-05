@@ -1,0 +1,23 @@
+# Local dependencies and build output
+node_modules
+.next
+out
+dist
+coverage
+tsconfig.tsbuildinfo
+
+# Local runtimes and logs
+.venv
+*.log
+next-dev*.log
+playwright-report
+test-results
+
+# Local secrets and environment overrides
+.env
+.env.*
+!.env.example
+
+# Non-runtime project notes and generated captures
+docs
+db
