@@ -129,6 +129,9 @@ export default function HomePage() {
         <header className={`border-4 border-black bg-white ${panelShadow}`}>
           <div className="grid gap-0 lg:grid-cols-[1fr_auto]">
             <div className="border-b-4 border-black bg-[#ff4fa3] p-4 sm:p-6 lg:border-b-0 lg:border-r-4">
+              <p className="mb-4 inline-flex border-4 border-black bg-white px-3 py-1 text-xs font-black uppercase tracking-[0.16em] shadow-[4px_4px_0_#111111]">
+                Idea borrowed from Riley Walz
+              </p>
               <h1 className="max-w-4xl text-4xl font-black leading-none text-black sm:text-6xl lg:text-7xl">
                 (Probably) Empty Theatres
               </h1>
@@ -285,6 +288,9 @@ export default function HomePage() {
             </div>
           </section>
         </div>
+        <footer className="border-4 border-black bg-white px-4 py-3 text-center text-sm font-black uppercase tracking-[0.16em] shadow-[6px_6px_0_#111111]">
+          Made with love in Waterloo
+        </footer>
       </div>
     </main>
   );
