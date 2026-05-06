@@ -8,6 +8,7 @@ export type SeatStatus =
   | "unknown";
 
 export type Confidence = "high" | "medium" | "low-but-interesting" | "not-empty" | "unknown";
+export type SortOption = "distance-asc" | "distance-desc" | "time-asc" | "time-desc";
 
 export type Theatre = {
   id: string;
@@ -56,6 +57,12 @@ export type SearchResult = {
   distanceKm?: number;
 };
 
+export type MovieSuggestion = {
+  title: string;
+  theatreCount: number;
+  showtimeCount: number;
+};
+
 export type SearchQuery = {
   location: string;
   date: string;
@@ -66,6 +73,7 @@ export type SearchQuery = {
   startsInNextTwoHours?: boolean;
   nonVipOnly?: boolean;
   accessibleAvailable?: boolean;
+  sortBy?: SortOption;
 };
 
 export type RawSeat = {

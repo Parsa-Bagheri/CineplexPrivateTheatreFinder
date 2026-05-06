@@ -9,7 +9,7 @@ const STATUS_KEYWORDS: Array<[SeatStatus, RegExp]> = [
   ["available", /\b(available|open|selectable)\b/i]
 ];
 
-export function classifySeatStatus(rawSeat: RawSeat): SeatStatus {
+function classifySeatStatus(rawSeat: RawSeat): SeatStatus {
   const text = [
     rawSeat.status,
     rawSeat.type,
@@ -31,7 +31,7 @@ export function classifySeatStatus(rawSeat: RawSeat): SeatStatus {
   return "unknown";
 }
 
-export function scoreShowing(snapshot: Pick<SeatSnapshot, "occupiedEstimate" | "unknownCount">): Confidence {
+function scoreShowing(snapshot: Pick<SeatSnapshot, "occupiedEstimate" | "unknownCount">): Confidence {
   if (snapshot.occupiedEstimate === 0 && snapshot.unknownCount === 0) {
     return "high";
   }
@@ -64,7 +64,7 @@ export function buildSeatSnapshot(showtimeId: string, rawSeats: RawSeat[], check
 
   const sellableSeats = counts.available + counts.sold + counts.reserved;
   const occupiedEstimate = counts.sold + counts.reserved;
-  const snapshot = {
+  return {
     showtimeId,
     checkedAt: checkedAt.toISOString(),
     totalSeats: rawSeats.length,
@@ -80,14 +80,12 @@ export function buildSeatSnapshot(showtimeId: string, rawSeats: RawSeat[], check
       seats: rawSeats
     }
   };
-
-  return snapshot;
 }
 
 export function formatConfidence(confidence: Confidence): string {
   switch (confidence) {
     case "high":
-      return "Likely empty - high confidence";
+      return "(Most likely) empty";
     case "medium":
       return "Likely empty - medium confidence";
     case "low-but-interesting":

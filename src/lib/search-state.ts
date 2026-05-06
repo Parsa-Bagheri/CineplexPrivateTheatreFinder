@@ -1,3 +1,5 @@
+import type { SortOption } from "./types";
+
 export type SearchFilters = {
   onlyZeroSold: boolean;
   maxFiveSold: boolean;
@@ -11,20 +13,23 @@ export type SearchState = {
   date: string;
   radiusKm: string;
   movieTitle: string;
+  sortBy: SortOption;
   filters: SearchFilters;
 };
 
-export type StoredSearchState = Partial<SearchState> & {
+type StoredSearchState = Partial<SearchState> & {
   hasSearched?: boolean;
 };
 
-export const defaultFilters: SearchFilters = {
+const defaultFilters: SearchFilters = {
   onlyZeroSold: false,
   maxFiveSold: true,
   startsInNextTwoHours: false,
   nonVipOnly: false,
   accessibleAvailable: false
 };
+
+const DEFAULT_SORT_BY: SortOption = "distance-asc";
 
 const STORAGE_KEY = "cineplex-likely-empty-search";
 
@@ -34,7 +39,8 @@ export function makeDefaultSearchState(today = getLocalDateInputValue()): Search
     date: today,
     radiusKm: "25",
     movieTitle: "",
-    filters: defaultFilters
+    sortBy: DEFAULT_SORT_BY,
+    filters: { ...defaultFilters }
   };
 }
 
@@ -51,6 +57,7 @@ export function buildSearchParams(state: SearchState): URLSearchParams {
     location: state.location,
     date: state.date,
     radiusKm: state.radiusKm,
+    sortBy: state.sortBy,
     ...Object.fromEntries(Object.entries(filters).map(([key, value]) => [key, String(value)]))
   });
 
@@ -70,6 +77,7 @@ export function normalizeSearchState(state: StoredSearchState, today = getLocalD
     date,
     radiusKm: state.radiusKm || defaults.radiusKm,
     movieTitle: state.movieTitle || "",
+    sortBy: parseSortOption(state.sortBy) ?? defaults.sortBy,
     filters: {
       ...defaults.filters,
       ...(state.filters ?? {}),
@@ -96,6 +104,7 @@ export function readSearchStateFromUrl(search: string): StoredSearchState | unde
     date,
     radiusKm: params.get("radiusKm") ?? "25",
     movieTitle: params.get("movieTitle") ?? "",
+    sortBy: parseSortOption(params.get("sortBy")) ?? DEFAULT_SORT_BY,
     filters: {
       onlyZeroSold: params.get("onlyZeroSold") === "true",
       maxFiveSold: params.get("maxFiveSold") !== "false",
@@ -104,20 +113,6 @@ export function readSearchStateFromUrl(search: string): StoredSearchState | unde
       accessibleAvailable: params.get("accessibleAvailable") === "true"
     }
   };
-}
-
-export function readSearchStateFromStorage(storage: Storage): StoredSearchState | undefined {
-  const raw = storage.getItem(STORAGE_KEY);
-
-  if (!raw) {
-    return undefined;
-  }
-
-  try {
-    return JSON.parse(raw) as StoredSearchState;
-  } catch {
-    return undefined;
-  }
 }
 
 export function rememberSearchState(storage: Storage, state: SearchState, hasSearched: boolean) {
@@ -129,6 +124,15 @@ export function rememberSearchState(storage: Storage, state: SearchState, hasSea
       hasSearched
     })
   );
+}
+
+function parseSortOption(value: unknown): SortOption | undefined {
+  return value === "distance-asc" ||
+    value === "distance-desc" ||
+    value === "time-asc" ||
+    value === "time-desc"
+    ? value
+    : undefined;
 }
 
 export function getLocalDateInputValue(): string {

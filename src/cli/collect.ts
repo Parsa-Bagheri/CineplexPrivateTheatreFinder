@@ -9,6 +9,12 @@ type Args = {
   radius?: number;
 };
 
+const timeFormatter = new Intl.DateTimeFormat("en-CA", {
+  hour: "2-digit",
+  minute: "2-digit",
+  hourCycle: "h23"
+});
+
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   const client = new CineplexClient();
@@ -35,16 +41,22 @@ function parseArgs(argv: string[]): Args {
     const [, key, rawValue] = match;
     const value = rawValue.replace(/^"|"$/g, "");
 
-    if (key === "theatre") {
-      args.theatre = value;
-    } else if (key === "date") {
-      args.date = value;
-    } else if (key === "movie") {
-      args.movie = value;
-    } else if (key === "location") {
-      args.location = value;
-    } else if (key === "radius") {
-      args.radius = Number(value);
+    switch (key) {
+      case "theatre":
+        args.theatre = value;
+        break;
+      case "date":
+        args.date = value;
+        break;
+      case "movie":
+        args.movie = value;
+        break;
+      case "location":
+        args.location = value;
+        break;
+      case "radius":
+        args.radius = Number(value);
+        break;
     }
   }
 
@@ -55,11 +67,7 @@ function toCliResult(result: SearchResult) {
   return {
     theatre: result.theatre.name,
     movie: result.showtime.movieTitle,
-    time: new Intl.DateTimeFormat("en-CA", {
-      hour: "2-digit",
-      minute: "2-digit",
-      hourCycle: "h23"
-    }).format(new Date(result.showtime.startsAt)),
+    time: timeFormatter.format(new Date(result.showtime.startsAt)),
     format: result.showtime.format,
     occupied_estimate: result.snapshot.occupiedEstimate,
     available_count: result.snapshot.availableCount,

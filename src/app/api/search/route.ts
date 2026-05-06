@@ -17,7 +17,8 @@ const searchSchema = z.object({
   maxFiveSold: booleanParam,
   startsInNextTwoHours: booleanParam,
   nonVipOnly: booleanParam,
-  accessibleAvailable: booleanParam
+  accessibleAvailable: booleanParam,
+  sortBy: z.enum(["distance-asc", "distance-desc", "time-asc", "time-desc"]).optional()
 });
 
 export async function GET(request: Request) {
