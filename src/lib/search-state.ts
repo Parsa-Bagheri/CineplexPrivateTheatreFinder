@@ -102,8 +102,7 @@ export function readSearchStateFromUrl(search: string): StoredSearchState | unde
       startsInNextTwoHours: params.get("startsInNextTwoHours") === "true",
       nonVipOnly: params.get("nonVipOnly") === "true",
       accessibleAvailable: params.get("accessibleAvailable") === "true"
-    },
-    hasSearched: true
+    }
   };
 }
 

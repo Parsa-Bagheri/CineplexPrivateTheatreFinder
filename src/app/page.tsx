@@ -82,12 +82,8 @@ export default function HomePage() {
     setRadiusKm(state.radiusKm);
     setMovieTitle(state.movieTitle);
     setFilters(state.filters);
-    setHasSearched(Boolean(saved.hasSearched));
-
-    if (saved.hasSearched) {
-      void executeSearch(state, { replaceUrl: false, remember: true });
-    }
-  }, [executeSearch]);
+    setHasSearched(false);
+  }, []);
 
   useEffect(() => {
     if (!loadedSavedState.current) {
