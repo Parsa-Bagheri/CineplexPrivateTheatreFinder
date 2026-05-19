@@ -1,6 +1,6 @@
-# Cineplex Likely Empty
+# Private Theatre Finder
 
-A Next.js app for finding Cineplex showtimes that appear to have zero or very few occupied seats. Results are labeled "likely empty" because seat maps can change quickly and because blocked, accessible-only, house-reserved, and unknown seats are not the same as sold seats.
+A Next.js app for finding (currently only Cineplex) showtimes that appear to have zero or very few occupied seats. Results are labeled "likely empty" because seat maps can change quickly and because blocked, accessible-only, house-reserved, and unknown seats are not the same as sold seats.
 
 ## What Is Included
 
